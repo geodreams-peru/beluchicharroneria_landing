@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta Completa - BELÚ Chicharronería</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <meta name="description" content="Carta completa de BELÚ Chicharronería: desayunos, sánguches, hamburguesas, porciones, combos, bebidas y jugos." />
+</head>
+<body class="menu-page">
+  <header class="main-header">
+    <div class="container header-content">
+      <a href="index.html" class="logo">
+        <img src="assets/logo-belu.png" alt="Belú Chicharronería" />
+      </a>
+      <nav class="main-nav">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#empresas">Empresas</a>
+        <a href="index.html#delivery">Delivery</a>
+        <a href="index.html#contacto">Contacto</a>
+        <a href="menu.html" class="btn-nav active">Carta</a>
+      </nav>
+      <button class="burger" id="burgerBtn" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="section menu-hero">
+    <div class="container">
+      <h1>Nuestra carta completa</h1>
+      <p>Desayunos, sánguches, hamburguesas, jugos, café y chicharrón por peso.</p>
+      <div class="menu-hero-actions">
+        <a href="index.html" class="btn-ghost">Volver al inicio</a>
+        <a href="index.html#delivery" class="btn-primary">Pedir por delivery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTROS / ANCLA -->
+  <section class="section section-alt">
+    <div class="container menu-shortcuts">
+      <span>Ir a:</span>
+      <a href="#desayunos">Desayunos</a>
+      <a href="#sanguches">Sánguches</a>
+      <a href="#hamburguesas">Hamburguesas</a>
+      <a href="#otros">Otros</a>
+      <a href="#porciones">Porciones</a>
+      <a href="#combos">Combos</a>
+      <a href="#peso">Por peso</a>
+      <a href="#adicionales">Adicionales</a>
+      <a href="#calientes">Bebidas calientes</a>
+      <a href="#frias">Bebidas frías</a>
+      <a href="#jugos">Jugos</a>
+    </div>
+  </section>
+
+  <!-- USO DE ACORDEÓN PARA NO OCUPAR MUCHO ESPACIO -->
+  <main class="section">
+    <div class="container menu-accordion">
+
+      <!-- DESAYUNOS -->
+      <details id="desayunos" class="menu-block" open>
+        <summary>Desayunos</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Producto</span>
+            <span>Precio</span>
+            <span>Descripción</span>
+          </div>
+          <div class="menu-row">
+            <span>Cau Cau de Mondongo + Pan + Café</span>
+            <span>S/ 26</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Sopa Especial al Estilo Japonés</span>
+            <span>S/ 25</span>
+            <span>Caldo de pollo y chancho, tortilla japonesa, chancho, pollo, cebolla china, fideos.</span>
+          </div>
+        </div>
+      </details>
+
+      <!-- SANGUCHES -->
+      <details id="sanguches" class="menu-block">
+        <summary>Sánguches</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Producto</span>
+            <span>Precio</span>
+            <span>Descripción</span>
+          </div>
+          <div class="menu-row">
+            <span>Chicharrón (Junior / Clásico)</span>
+            <span>S/ 21.5</span>
+            <span>Nuestro sánguche más pedido, “junior”: pan grande con 150 g de chicharrón + camote.</span>
+          </div>
+          <div class="menu-row">
+            <span>Chicharrón Especial</span>
+            <span>S/ 25.4</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Chancher Relleno</span>
+            <span>S/ 23.5</span>
+            <span>Pan grande con chicharrón + relleno + camote.</span>
+          </div>
+          <div class="menu-row">
+            <span>Chancher Parrillero</span>
+            <span>S/ 24.5</span>
+            <span>Pan grande con chicharrón + chorizo parrillero + camote.</span>
+          </div>
+          <div class="menu-row">
+            <span>Sánguche de Chicharrón a la Barbecue</span>
+            <span>S/ 23</span>
+            <span>Chicharrón en salsa BBQ + camote + pan especial.</span>
+          </div>
+          <div class="menu-row">
+            <span>Chicharrón Compartido</span>
+            <span>S/ 33</span>
+            <span>Sánguche especial dividido en 2 panes.</span>
+          </div>
+          <div class="menu-row">
+            <span>Pan con Chicharrita</span>
+            <span>S/ 17.5</span>
+            <span>En pan grande: chicharrita sobre camote.</span>
+          </div>
+          <div class="menu-row">
+            <span>Butifarra BELÚ</span>
+            <span>S/ 20</span>
+            <span>Jamón del país + lechuga + zarza + mostaza + mayo de la casa.</span>
+          </div>
+          <div class="menu-row">
+            <span>Asado de Res Especial</span>
+            <span>S/ 22.5</span>
+            <span>Lonjas de asado en pan especial grande.</span>
+          </div>
+          <div class="menu-row">
+            <span>Pollo Deshilachado</span>
+            <span>S/ 18.5</span>
+            <span>Pollo + lechuga + mayo.</span>
+          </div>
+          <div class="menu-row">
+            <span>Filete de Pollo</span>
+            <span>S/ 18.9</span>
+            <span>Filete + lechuga + tomate.</span>
+          </div>
+          <div class="menu-row">
+            <span>Sánguche Filete + Palta</span>
+            <span>S/ 20</span>
+            <span>Filete + palta + lechuga + tomate.</span>
+          </div>
+          <div class="menu-row">
+            <span>Sánguche Pollo + Palta</span>
+            <span>S/ 20</span>
+            <span>Pollo deshilachado + lechuga + palta + mayo.</span>
+          </div>
+          <div class="menu-row">
+            <span>Relleno</span>
+            <span>S/ 19.5</span>
+            <span>Relleno + camote.</span>
+          </div>
+          <div class="menu-row">
+            <span>Chorizo Parrillero</span>
+            <span>S/ 18.5</span>
+            <span>Chorizo parrillero + lechuga.</span>
+          </div>
+          <div class="menu-row">
+            <span>Frankfurter</span>
+            <span>S/ 18.5</span>
+            <span>Salchicha frankfurter.</span>
+          </div>
+          <div class="menu-row">
+            <span>Frankfurter + Huevo</span>
+            <span>S/ 19.9</span>
+            <span>Salchicha frankfurter + huevo revuelto.</span>
+          </div>
+          <div class="menu-row">
+            <span>Mixto</span>
+            <span>S/ 18</span>
+            <span>Queso Edam + jamón inglés + mayo + mantequilla.</span>
+          </div>
+          <div class="menu-row">
+            <span>Triple</span>
+            <span>S/ 22</span>
+            <span>Queso + jamón inglés + pollo + mayo + mantequilla.</span>
+          </div>
+          <div class="menu-row">
+            <span>Triple Vegetariano</span>
+            <span>S/ 20</span>
+            <span>Queso + mantequilla + huevo + tomate + orégano + lechuga.</span>
+          </div>
+        </div>
+      </details>
+
+      <!-- HAMBURGUESAS -->
+      <details id="hamburguesas" class="menu-block">
+        <summary>Hamburguesas</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Producto</span>
+            <span>Precio</span>
+            <span>Descripción</span>
+          </div>
+          <div class="menu-row">
+            <span>Hamburguesa Clásica</span>
+            <span>S/ 21.5</span>
+            <span>Lechuga + tomate.</span>
+          </div>
+          <div class="menu-row">
+            <span>Hamburguesa con Queso</span>
+            <span>S/ 21.9</span>
+            <span>Queso + lechuga + tomate.</span>
+          </div>
+          <div class="menu-row">
+            <span>Hamburguesa con Huevo</span>
+            <span>S/ 21.9</span>
+            <span>Huevo + lechuga + tomate.</span>
+          </div>
+          <div class="menu-row">
+            <span>Hamburguesa Royal</span>
+            <span>S/ 23</span>
+            <span>Queso + huevo + lechuga + tomate.</span>
+          </div>
+          <div class="menu-row">
+            <span>Hamburguesa Parrillera</span>
+            <span>S/ 26</span>
+            <span>Chorizo + queso + huevo + lechuga + tomate.</span>
+          </div>
+          <div class="menu-row">
+            <span>Hamburguesa Chicharronera</span>
+            <span>S/ 27</span>
+            <span>Chicharrón + lechuga + tomate.</span>
+          </div>
+        </div>
+      </details>
+
+      <!-- OTROS -->
+      <details id="otros" class="menu-block">
+        <summary>Otros</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Producto</span>
+            <span>Precio</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Salchicha Huachana</span>
+            <span>S/ 18.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Pan con Camote</span>
+            <span>S/ 7.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Pan con Queso Edam</span>
+            <span>S/ 8.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Pan con Huevo Frito (2)</span>
+            <span>S/ 7.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Huevos Revueltos (3)</span>
+            <span>S/ 8</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Huevos Fritos (2)</span>
+            <span>S/ 6.5</span>
+            <span></span>
+          </div>
+        </div>
+      </details>
+
+      <!-- PORCIONES -->
+      <details id="porciones" class="menu-block">
+        <summary>Porciones</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Producto</span>
+            <span>Precio</span>
+            <span>Descripción</span>
+          </div>
+          <div class="menu-row">
+            <span>Porción de Chicharrón (plato)</span>
+            <span>S/ 21.5</span>
+            <span>Chicharrón + camote sobre plato.</span>
+          </div>
+          <div class="menu-row">
+            <span>Porción Parrillera</span>
+            <span>S/ 25</span>
+            <span>Chicharrón + camote o chorizo o frankfurter.</span>
+          </div>
+          <div class="menu-row">
+            <span>Porción Camote Frito</span>
+            <span>S/ 9</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>½ Porción Camote</span>
+            <span>S/ 5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Porción de Relleno</span>
+            <span>S/ 21</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>½ Porción de Relleno</span>
+            <span>S/ 13</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Porción Chicharrita</span>
+            <span>S/ 20.5</span>
+            <span>Trozos pequeños tostados.</span>
+          </div>
+        </div>
+      </details>
+
+      <!-- COMBOS -->
+      <details id="combos" class="menu-block">
+        <summary>Combos</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Combo</span>
+            <span>Precio</span>
+            <span>Descripción</span>
+          </div>
+          <div class="menu-row">
+            <span>Combo Uno</span>
+            <span>S/ 32</span>
+            <span>150 g chicharrón + camote + 2 panes + tamal.</span>
+          </div>
+          <div class="menu-row">
+            <span>Combo Dos</span>
+            <span>S/ 35.5</span>
+            <span>Con relleno.</span>
+          </div>
+          <div class="menu-row">
+            <span>Combo Tres</span>
+            <span>S/ 49.2</span>
+            <span>250 g chicharrón + ½ camote + 4 panes + tamal.</span>
+          </div>
+          <div class="menu-row">
+            <span>Combo Cuatro</span>
+            <span>S/ 82</span>
+            <span>500 g chicharrón + camote + 6 panes + tamal.</span>
+          </div>
+          <div class="menu-row">
+            <span>Combo Cinco</span>
+            <span>S/ 154.5</span>
+            <span>1 kg chicharrón + 2 camotes + 10 panes + 2 tamales.</span>
+          </div>
+          <div class="menu-row">
+            <span>Combo Jugo</span>
+            <span>S/ 33.7</span>
+            <span>Chicharrón junior + jugo.</span>
+          </div>
+          <div class="menu-row">
+            <span>Combo Café</span>
+            <span>S/ 27</span>
+            <span>Chicharrón junior + café + pan.</span>
+          </div>
+          <div class="menu-row">
+            <span>Combo Único</span>
+            <span>S/ 20</span>
+            <span>Pan con chicharrita + café.</span>
+          </div>
+          <div class="menu-row">
+            <span>Chicharrón Básico + Café</span>
+            <span>S/ 21.9</span>
+            <span>Pan con 100 g chicharrón + café.</span>
+          </div>
+        </div>
+      </details>
+
+      <!-- POR PESO -->
+      <details id="peso" class="menu-block">
+        <summary>Por peso</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Presentación</span>
+            <span>Precio</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>1/4 kg Chicharrón</span>
+            <span>S/ 35.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>1/2 kg Chicharrón</span>
+            <span>S/ 57.9</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>3/4 kg Chicharrón</span>
+            <span>S/ 90.1</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>1 kg Chicharrón</span>
+            <span>S/ 107.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>1/4 kg solo</span>
+            <span>S/ 27.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>1/2 kg solo</span>
+            <span>S/ 51.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>3/4 kg solo</span>
+            <span>S/ 82.1</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>1 kg solo</span>
+            <span>S/ 99.5</span>
+            <span></span>
+          </div>
+        </div>
+      </details>
+
+      <!-- ADICIONALES -->
+      <details id="adicionales" class="menu-block">
+        <summary>Adicionales</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Producto</span>
+            <span>Precio</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Zarza criolla</span>
+            <span>S/ 1.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Ají de la casa</span>
+            <span>S/ 1.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Tamal grande</span>
+            <span>S/ 13.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Camote frito</span>
+            <span>S/ 9</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>½ camote</span>
+            <span>S/ 5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Relleno</span>
+            <span>S/ 21</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>½ relleno</span>
+            <span>S/ 13</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Chicharrita</span>
+            <span>S/ 20.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Pan especial</span>
+            <span>S/ 1.3</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Esencia de café 300 ml</span>
+            <span>S/ 19</span>
+            <span></span>
+          </div>
+        </div>
+      </details>
+
+      <!-- BEBIDAS CALIENTES -->
+      <details id="calientes" class="menu-block">
+        <summary>Bebidas calientes</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Producto</span>
+            <span>Precio</span>
+            <span>Descripción</span>
+          </div>
+          <div class="menu-row">
+            <span>Café Pasado</span>
+            <span>S/ 6</span>
+            <span>Gota a gota.</span>
+          </div>
+          <div class="menu-row">
+            <span>Café con Leche</span>
+            <span>S/ 7.8</span>
+            <span>Café de olla con leche.</span>
+          </div>
+          <div class="menu-row">
+            <span>Infusión</span>
+            <span>S/ 4.6</span>
+            <span>Anís / té / manzanilla / clavo / canela.</span>
+          </div>
+          <div class="menu-row">
+            <span>Milo con Leche</span>
+            <span>S/ 8.5</span>
+            <span>Tradicional.</span>
+          </div>
+          <div class="menu-row">
+            <span>Capuccino</span>
+            <span>S/ 12</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Café Express</span>
+            <span>S/ 10.2</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Chocolate Caliente</span>
+            <span>S/ 8</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Taza de Agua Caliente</span>
+            <span>S/ 4.6</span>
+            <span></span>
+          </div>
+        </div>
+      </details>
+
+      <!-- BEBIDAS FRÍAS -->
+      <details id="frias" class="menu-block">
+        <summary>Bebidas frías</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Producto</span>
+            <span>Precio</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Chicha Morada Helada</span>
+            <span>S/ 7.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Batido de Milo</span>
+            <span>S/ 12.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Naranja Natural</span>
+            <span>S/ 12.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Café Helado</span>
+            <span>S/ 6.7</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Limonada Clásica</span>
+            <span>S/ 8.9</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Gaseosa</span>
+            <span>S/ 7</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Agua Mineral</span>
+            <span>S/ 5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Limonada Frozen</span>
+            <span>S/ 9.5</span>
+            <span></span>
+          </div>
+        </div>
+      </details>
+
+      <!-- JUGOS -->
+      <details id="jugos" class="menu-block">
+        <summary>Jugos</summary>
+        <div class="menu-table">
+          <div class="menu-row menu-header">
+            <span>Producto</span>
+            <span>Precio</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Papaya</span>
+            <span>S/ 11.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Piña</span>
+            <span>S/ 11.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Fresa</span>
+            <span>S/ 11.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Surtido</span>
+            <span>S/ 11.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Mango</span>
+            <span>S/ 11.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Lúcuma</span>
+            <span>S/ 11.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Naranja</span>
+            <span>S/ 12.5</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Fresa con leche</span>
+            <span>S/ 14</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Surtido con leche</span>
+            <span>S/ 14</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Lúcuma con leche</span>
+            <span>S/ 14</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Mango con leche</span>
+            <span>S/ 14</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Combinación fruta + leche</span>
+            <span>S/ 14</span>
+            <span></span>
+          </div>
+          <div class="menu-row">
+            <span>Combinación fruta + naranja</span>
+            <span>S/ 14.5</span>
+            <span></span>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <p>© <span id="year"></span> BELÚ Chicharronería · Tradición desde 1980</p>
+      </div>
+      <div class="footer-right">
+        <a href="index.html">Inicio</a>
+        <a href="#desayunos">Carta</a>
+        <a href="index.html#delivery">Delivery</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

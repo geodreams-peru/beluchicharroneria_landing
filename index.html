@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belú Chicharronería | Tradición Chorrillana</title>
+    
+    <!-- FUENTES: Montserrat (Títulos modernos) y Lato (Lectura clara) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- ICONOS: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- TAILWIND CSS (Via CDN para modernidad y rapidez) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- CONFIGURACIÓN DE COLORES DE LA MARCA -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        beluOrange: '#FF6B00',    /* Naranja Vibrante */
+                        beluGuinda: '#800020',    /* Guinda Elegante */
+                        beluDark: '#2D1B1B',      /* Oscuro casi negro */
+                        beluCream: '#F9F5F0',     /* Crema para fondos */
+                    },
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ESTILOS PERSONALIZADOS (CSS) -->
+    <style>
+        /* Scroll suave */
+        html { scroll-behavior: smooth; }
+        
+        /* Ocultar scrollbar pero mantener funcionalidad */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F9F5F0; }
+        ::-webkit-scrollbar-thumb { background: #FF6B00; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #800020; }
+
+        /* Efecto de cristal en el nav */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Utilidades de animación al hacer scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Estilo para el video de fondo (ocupa toda la pantalla). 
+           Usamos centrado y cálculo 16:9 para asegurar cover en iframes. */
+        .video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            /* Altura siempre igual al viewport, ancho calculado según 16:9 para cubrir */
+            height: 100vh;
+            width: calc(100vh * 16 / 9);
+            /* Asegurar que nunca quede más estrecho que el viewport */
+            min-width: 100vw;
+            /* Centrar mediante transform */
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            /* object-fit no aplica a iframe; usamos tamaño y centrado en su lugar */
+            filter: brightness(0.5); /* Oscurecer para que el texto resalte */
+            pointer-events: none; /* Permite interactuar con elementos encima */
+            background: #000; /* fallback mientras carga */
+            will-change: transform;
+        }
+
+        /* Transiciones de página (Home <-> Carta) */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .page-section.active-page {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos del Acordeón del Menú */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .accordion-btn.active .icon-rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+
+<!-- FAVICON BÁSICO -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+<!-- PNG (navegadores modernos) -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+
+<!-- APPLE (iPhone / iPad) -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<!-- COLOR PARA NAVEGADORES MÓVILES -->
+<meta name="theme-color" content="#1EDAE8">
+
+
+</head>
+<body class="bg-beluCream text-beluDark antialiased overflow-x-hidden">
+
+    <!-- NAV DE NAVEGACIÓN -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" onclick="showPage('home')" class="text-2xl font-display font-black tracking-tighter text-beluGuinda flex items-center gap-2">
+                <img src="img/belulogo.png" alt="Belú Logo" class="w-8 h-8 object-contain"> BELÚ <span class="text-beluOrange">CHICHARRONERÍA</span>
+            </a>
+
+            <!-- Menú Desktop -->
+            <div class="hidden md:flex items-center space-x-8 font-bold text-sm uppercase tracking-wide">
+                <a href="#" onclick="showPage('home')" class="hover:text-beluOrange transition-colors">Inicio</a>
+                <a href="#tradicion" onclick="handleNavClick('tradicion')" class="hover:text-beluOrange transition-colors">Nosotros</a>
+                <a href="#empresas" onclick="handleNavClick('empresas')" class="hover:text-beluOrange transition-colors">Empresas</a>
+                <a href="#" onclick="showPage('menu')" class="text-beluGuinda border-b-2 border-beluGuinda hover:text-beluOrange hover:border-beluOrange transition-all">
+                    <i class="fa-solid fa-book-open mr-1"></i> VER LA CARTA
+                </a>
+                <a href="#contacto" onclick="handleNavClick('contacto')" class="px-5 py-2 bg-beluOrange text-white rounded-full hover:bg-beluGuinda transition-all shadow-lg transform hover:scale-105">
+                    Contacto
+                </a>
+            </div>
+
+            <!-- Botón Móvil -->
+            <button class="md:hidden text-2xl text-beluGuinda" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white absolute w-full shadow-xl border-t border-gray-100">
+            <div class="flex flex-col p-6 space-y-4 font-bold text-center">
+                <a href="#" onclick="showPage('home'); toggleMobileMenu()" class="block py-2 hover:text-beluOrange">Inicio</a>
+                <a href="#tradicion" onclick="handleNavClick('tradicion'); toggleMobileMenu()" class="block py-2 hover:text-beluOrange">Nosotros</a>
+                <a href="#" onclick="showPage('menu'); toggleMobileMenu()" class="block py-2 text-beluGuinda bg-orange-50 rounded-lg">VER LA CARTA COMPLETA</a>
+                <a href="#empresas" onclick="handleNavClick('empresas'); toggleMobileMenu()" class="block py-2 hover:text-beluOrange">Empresas</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- PÁGINA 1: LANDING PRINCIPAL (HOME) -->
+    <!-- ============================================ -->
+    <main id="home-page" class="page-section active-page pt-20">
+        
+        <!-- HERO SECTION CON VIDEO -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden">
+            <!-- Video Background: YouTube embebido (reemplaza VIDEO_ID por tu ID o pega la URL en el src) -->
+            <!-- Ejemplo de src: https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&controls=0&loop=1&playlist=VIDEO_ID&modestbranding=1&rel=0 -->
+                <iframe class="video-bg"
+                    data-youtube-url="https://youtu.be/PkFwcgJ5TWI?si=neuKAyasntu5bmLY"
+                    src="about:blank"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media; fullscreen"
+                    allowfullscreen
+                    aria-hidden="true">
+                </iframe>
+
+                <!-- Marca Belú encima del hero (marca de agua / identificador) -->
+                <img src="img/belulogo.png" alt="Belú Logo" class="absolute top-6 right-6 w-16 z-30 hidden sm:block opacity-95">
+            
+            <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                <div class="animate-fade-in-up">
+                    <span class="bg-beluOrange text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-4 inline-block shadow-lg">
+                        Desde 1980 en Chorrillos
+                    </span>
+                    <h1 class="text-5xl md:text-7xl font-display font-black text-white leading-tight mb-6 drop-shadow-xl">
+                        EL VERDADERO SABOR <br> <span class="text-beluOrange">DEL CHICHARRÓN</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-200 font-light mb-10 max-w-2xl mx-auto drop-shadow-md">
+                        Tradición, crocancia y sabor que conquistan generaciones. 
+                        ¡Ven y descubre por qué somos leyenda!
+                    </p>
+                    
+                    <!-- Botones de Delivery -->
+                    <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                                <a href="https://www.rappi.com.pe/restaurantes/74024-belu-chicharroneria" target="_blank" class="w-full md:w-auto bg-[#FF4F45] hover:bg-[#E03A30] text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all transform hover:-translate-y-1 shadow-xl group">
+                                    <img src="img/rappi.png" alt="Rappi" class="w-6 h-6 object-contain"> Pedir por RAPPI
+                                </a>
+                                <a href="https://www.pedidosya.com.pe/restaurantes/lima/belu-chicharroneria-c200b55e-ac2d-4ec4-a619-0ab95faeb092-menu?origin=shop_list" target="_blank" class="w-full md:w-auto bg-[#EA0029] hover:bg-[#C20022] text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all transform hover:-translate-y-1 shadow-xl group">
+                                    <img src="img/pedidosya.png" alt="PedidosYa" class="w-6 h-6 object-contain"> Pedir por PEDIDOS YA
+                                </a>
+                        <button onclick="showPage('menu')" class="w-full md:w-auto border-2 border-white text-white hover:bg-white hover:text-beluDark px-8 py-4 rounded-xl font-bold transition-all">
+                            Ver Carta Digital
+                        </button>
+                    </div>
+                    <!-- Enlace al video completo en YouTube -->
+                    <div class="mt-4">
+                        <a href="https://youtu.be/PkFwcgJ5TWI?si=neuKAyasntu5bmLY" target="_blank" rel="noopener noreferrer" class="text-white underline hover:text-beluOrange font-semibold">
+                            Mira el video completo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white">
+                <i class="fa-solid fa-chevron-down text-2xl opacity-70"></i>
+            </div>
+        </section>
+
+        <!-- SECCIÓN TRADICIÓN (45 Años) -->
+        <section id="tradicion" class="py-20 px-6 bg-white reveal">
+            <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-beluOrange rounded-full opacity-20"></div>
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-beluGuinda rounded-full opacity-10"></div>
+                    <img src="img/chicharron-belu.jpg" 
+                         alt="Chicharrón Clásico" 
+                         class="rounded-3xl shadow-2xl relative z-10 w-full h-[400px] object-cover hover:scale-[1.02] transition-transform duration-500">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-beluGuinda font-display font-black text-4xl mb-4">45 AÑOS DE <br><span class="text-beluOrange">TRADICIÓN CHORRILLANA</span></h2>
+                    <div class="w-20 h-2 bg-beluOrange mb-6"></div>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                        Desde 1980, Belú Chicharronería ha sido el punto de encuentro para quienes buscan el desayuno perfecto. Lo que empezó como un sueño familiar, hoy es un ícono gastronómico en Chorrillos.
+                    </p>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-8">
+                        Nuestro secreto no está en la receta, sino en el cariño y la selección de los mejores ingredientes frescos cada mañana. ¡El chicharrón de siempre, con el sabor que te encanta!
+                    </p>
+                    <div class="flex gap-8 text-center">
+                        <div>
+                            <span class="block text-4xl font-black text-beluGuinda">+45</span>
+                            <span class="text-sm text-gray-500 font-bold uppercase">Años de Sabor</span>
+                        </div>
+                        <div>
+                            <span class="block text-4xl font-black text-beluGuinda">100%</span>
+                            <span class="text-sm text-gray-500 font-bold uppercase">Calidad Belú</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DESTACADOS -->
+        <section class="py-20 px-6 bg-beluCream reveal">
+            <div class="container mx-auto text-center mb-16">
+                <span class="text-beluOrange font-bold uppercase tracking-widest text-sm">Los Favoritos</span>
+                <h2 class="text-4xl md:text-5xl font-display font-black text-beluDark mt-2">NUESTROS HITS</h2>
+            </div>
+
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer" onclick="showPage('menu')">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="img/chicharron-especial-belu.jpg" alt="Pan con Chicharrón" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold font-display text-beluGuinda mb-2">Chicharrón Clásico</h3>
+                        <p class="text-gray-600 text-sm mb-4">Nuestro sánguche más pedido. Pan grande, 150g de puro sabor y camote frito.</p>
+                        <span class="text-beluOrange font-bold text-sm uppercase flex items-center gap-2">
+                            Ver en carta <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer" onclick="showPage('menu')">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="img/caucau-belu.jpg" alt="Desayuno Completo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold font-display text-beluGuinda mb-2">Cau Cau + Café</h3>
+                        <p class="text-gray-600 text-sm mb-4">Para los que buscan potencia. Un desayuno contundente con pan y café pasado.</p>
+                        <span class="text-beluOrange font-bold text-sm uppercase flex items-center gap-2">
+                            Ver en carta <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer" onclick="showPage('menu')">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="img/butifarra-belu.jpg" alt="Hamburguesa Royal" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold font-display text-beluGuinda mb-2">Butifarra Belú</h3>
+                        <p class="text-gray-600 text-sm mb-4">De la pierna su deleite!, Un clásico de clásicos, Butifarra con su zarza criolla, mayonesa y mostaza!.</p>
+                        <span class="text-beluOrange font-bold text-sm uppercase flex items-center gap-2">
+                            Ver en carta <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button onclick="showPage('menu')" class="inline-block border-2 border-beluGuinda text-beluGuinda hover:bg-beluGuinda hover:text-white px-10 py-3 rounded-full font-bold transition-all text-lg shadow-md">
+                    <i class="fa-solid fa-utensils mr-2"></i> VER TODO EL MENÚ
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN EMPRESAS -->
+        <section id="empresas" class="py-20 bg-beluDark text-white relative overflow-hidden reveal">
+            <!-- Patrón de fondo abstracto -->
+            <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+            
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="lg:w-1/2">
+                        <span class="text-beluOrange font-bold tracking-widest uppercase">Servicio Corporativo</span>
+                        <h2 class="text-4xl md:text-5xl font-display font-black mt-2 mb-6">LLEVA EL SABOR DE BELÚ A <span class="text-beluOrange">TU EMPRESA</span></h2>
+                        <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+                            ¿Reunión ejecutiva? ¿Desayuno de integración? Sorprende a tu equipo con la tradición de Belú. 
+                            Ofrecemos paquetes especiales para eventos corporativos, coffee breaks y celebraciones de oficina.
+                        </p>
+                        <div class="flex items-center gap-4 mb-6">
+                            <img src="img/belulogo.png" alt="Belú" class="w-14 h-14 object-contain">
+                            <div class="flex items-center gap-3">
+                                <a href="https://www.rappi.com.pe/" target="_blank" rel="noopener noreferrer"><img src="img/rappi.png" alt="Rappi" class="w-12 h-6 object-contain"></a>
+                                <a href="https://www.pedidosya.com.pe/" target="_blank" rel="noopener noreferrer"><img src="img/pedidosya.png" alt="PedidosYa" class="w-16 h-6 object-contain"></a>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-beluOrange"></i> Cajas individuales para sándwiches y jugos.</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-beluOrange"></i> Puntualidad y presentación impecable.</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-beluOrange"></i> Facturación disponible para empresas.</li>
+                        </ul>
+                        <a href="#contacto" class="inline-block bg-beluOrange hover:bg-white hover:text-beluOrange text-white px-8 py-3 rounded-lg font-bold transition-all shadow-lg transform hover:scale-105">
+                            Cotizar Evento
+                        </a>
+                    </div>
+                    <div class="lg:w-1/2 w-full">
+                        <div class="relative bg-white/5 p-2 rounded-2xl backdrop-blur-sm border border-white/10">
+                            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1000&auto=format&fit=crop" alt="Evento Corporativo" class="rounded-xl w-full shadow-2xl">
+                            <div class="absolute -bottom-6 -left-6 bg-white text-beluDark p-6 rounded-lg shadow-xl hidden md:block max-w-xs">
+                                <p class="italic text-sm">"El mejor desayuno que hemos tenido en la oficina. Todo llegó caliente y a tiempo."</p>
+                                <p class="font-bold text-xs mt-2 text-beluGuinda">— Gerente de RRHH, Lima</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN TESTIMONIOS -->
+        <section class="py-20 bg-white reveal">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-display font-bold text-center text-beluGuinda mb-12">LO QUE DICEN NUESTROS <span class="text-beluOrange">COMENSALES</span></h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimonio 1 -->
+                    <div class="bg-beluCream p-8 rounded-2xl relative">
+                        <i class="fa-solid fa-quote-left text-4xl text-beluOrange opacity-20 absolute top-4 left-4"></i>
+                        <p class="text-gray-600 mb-6 relative z-10">"Vengo desde hace 10 años y la calidad nunca baja. El chicharrón siempre crujiente y el café pasado en su punto."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center font-bold text-white bg-beluGuinda">JC</div>
+                            <div>
+                                <h4 class="font-bold text-beluDark">Juan Carlos M.</h4>
+                                <div class="text-beluOrange text-xs">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonio 2 -->
+                    <div class="bg-beluCream p-8 rounded-2xl relative">
+                        <i class="fa-solid fa-quote-left text-4xl text-beluOrange opacity-20 absolute top-4 left-4"></i>
+                        <p class="text-gray-600 mb-6 relative z-10">"La atención es A1. Pedimos el combo familiar para el domingo y fue la mejor decisión. Súper recomendado."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center font-bold text-white bg-beluGuinda">AL</div>
+                            <div>
+                                <h4 class="font-bold text-beluDark">Ana Lucía R.</h4>
+                                <div class="text-beluOrange text-xs">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonio 3 -->
+                    <div class="bg-beluCream p-8 rounded-2xl relative">
+                        <i class="fa-solid fa-quote-left text-4xl text-beluOrange opacity-20 absolute top-4 left-4"></i>
+                        <p class="text-gray-600 mb-6 relative z-10">"Los sánguches son enormes y el camote es dulce y suave. Sin duda el mejor desayuno de Chorrillos."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center font-bold text-white bg-beluGuinda">RP</div>
+                            <div>
+                                <h4 class="font-bold text-beluDark">Ricardo P.</h4>
+                                <div class="text-beluOrange text-xs">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN CONTACTO -->
+        <section id="contacto" class="py-20 bg-beluGuinda text-white relative reveal">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
+                    <!-- Info Contacto -->
+                    <div class="md:w-1/3 bg-beluDark p-10 flex flex-col justify-between relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h3 class="text-2xl font-display font-bold mb-6">Contacto</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <i class="fa-solid fa-location-dot mt-1 text-beluOrange"></i>
+                                    <p class="text-sm text-gray-300">Av. Alejandro Iglesias 525, Chorrillos<br>Lima, Perú</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i class="fa-solid fa-envelope mt-1 text-beluOrange"></i>
+                                    <p class="text-sm text-gray-300">beluchicharroneria@gmail.com</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i class="fa-solid fa-phone mt-1 text-beluOrange"></i>
+                                    <p class="text-sm text-gray-300">961 974 994</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 relative z-10">
+                            <p class="text-xs text-gray-500 uppercase font-bold mb-2">Síguenos</p>
+                            <div class="flex gap-4 items-center">
+                                <a href="https://www.facebook.com/beluchicharron" class="w-8 h-8 rounded-full bg-beluOrange flex items-center justify-center hover:bg-white hover:text-beluOrange transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="https://www.instagram.com/beluchicharroneria/" class="w-8 h-8 rounded-full bg-beluOrange flex items-center justify-center hover:bg-white hover:text-beluOrange transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="https://www.tiktok.com/@beluchicharron" class="w-8 h-8 rounded-full bg-beluOrange flex items-center justify-center hover:bg-white hover:text-beluOrange transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                                <!-- Logos de delivery (pequeños) -->
+                                <a href="https://www.rappi.com.pe/restaurantes/74024-belu-chicharroneria" target="_blank" rel="noopener noreferrer" class="ml-4">
+                                    <img src="img/rappi.png" alt="Rappi" class="w-10 h-6 object-contain">
+                                </a>
+                                <a href="https://www.pedidosya.com.pe/restaurantes/lima/belu-chicharroneria-c200b55e-ac2d-4ec4-a619-0ab95faeb092-menu?origin=shop_list" target="_blank" rel="noopener noreferrer" class="ml-2">
+                                    <img src="img/pedidosya.png" alt="PedidosYa" class="w-14 h-6 object-contain">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Círculos decorativos -->
+                        <div class="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-beluOrange opacity-20"></div>
+                    </div>
+
+                    <!-- Formulario -->
+                    <div class="md:w-2/3 p-10 bg-white">
+                        <h3 class="text-2xl font-display font-bold text-beluGuinda mb-2">Escríbenos</h3>
+                        <p class="text-gray-500 text-sm mb-6">¿Dudas, pedidos especiales o eventos? Estamos aquí.</p>
+                        
+                        <form id="contact-form" method="post" action="https://formsubmit.co/beluchicharroneria@gmail.com" data-use-formsubmit="1" class="space-y-4">
+                            <!-- Envío directo a Formsubmit.co para diagnóstico rápido -->
+                            <input type="hidden" name="_subject" value="Contacto web Belú Chicharroneria">
+                            <input type="hidden" name="_next" value="./?thanks=1">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="text" name="_honey" style="display:none">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nombre</label>
+                                    <input type="text" name="nombre" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-beluDark focus:outline-none focus:border-beluOrange transition-colors" placeholder="Tu nombre" required>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Teléfono</label>
+                                    <input type="tel" name="telefono" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-beluDark focus:outline-none focus:border-beluOrange transition-colors" placeholder="999 999 999">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Correo</label>
+                                <input type="email" name="correo" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-beluDark focus:outline-none focus:border-beluOrange transition-colors" placeholder="ejemplo@correo.com" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Mensaje</label>
+                                <textarea name="mensaje" rows="4" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-beluDark focus:outline-none focus:border-beluOrange transition-colors" placeholder="Cuéntanos en qué podemos ayudarte..." required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-beluGuinda text-white font-bold py-4 rounded-lg hover:bg-beluOrange transition-colors shadow-lg">
+                                ENVIAR MENSAJE
+                            </button>
+                            <div id="contact-status" class="text-sm mt-2"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-beluDark text-white py-10 border-t border-gray-800">
+            <div class="container mx-auto px-6 text-center">
+                <div class="mb-4 flex items-center justify-center gap-4">
+                    <img src="img/belulogo.png" alt="Belú Logo" class="w-10 h-10 object-contain">
+                    <span class="text-2xl font-display font-black tracking-tighter text-white">
+                        BELÚ <span class="text-beluOrange">CHICHARRONERÍA</span>
+                    </span>
+                </div>
+                <div class="mb-4 flex items-center justify-center gap-4">
+                    <a href="https://www.rappi.com.pe/restaurantes/74024-belu-chicharroneria" target="_blank" rel="noopener noreferrer"><img src="img/rappi.png" alt="Rappi" class="w-16 h-8 object-contain"></a>
+                    <a href="https://www.pedidosya.com.pe/restaurantes/lima/belu-chicharroneria-c200b55e-ac2d-4ec4-a619-0ab95faeb092-menu?origin=shop_list" target="_blank" rel="noopener noreferrer"><img src="img/pedidosya.png" alt="PedidosYa" class="w-20 h-8 object-contain"></a>
+                </div>
+                <p class="text-gray-400 text-sm mb-6">45 Años de Tradición Chorrillana.</p>
+                <p class="text-gray-600 text-xs">© 2024 Belú Chicharronería. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- PÁGINA 2: CARTA DIGITAL (MENU COMPLETO) -->
+    <!-- ============================================ -->
+    <main id="menu-page" class="page-section pt-24 min-h-screen bg-gray-50 pb-20">
+        
+        <!-- Header Carta -->
+        <div class="container mx-auto px-6 mb-10 text-center animate-fade-in-up">
+            <span class="text-beluOrange font-bold uppercase tracking-widest text-xs">Nuestro Menú</span>
+            <h1 class="text-4xl md:text-5xl font-display font-black text-beluGuinda mt-2">LA CARTA</h1>
+            <p class="text-gray-500 max-w-lg mx-auto mt-4">Explora nuestros desayunos, sánguches y especialidades. Haz clic en las categorías para desplegar.</p>
+            <p class="text-gray-500 text-sm mt-4 flex items-center justify-center gap-6">
+                <span>DELIVERY <img src="img/delivery.png" alt="Delivery" class="w-5 h-5 inline ml-2"></span>                <span>PEDIDO POR WHATSAPP <img src="img/whatsapp.png" alt="WhatsApp" class="w-5 h-5 inline ml-2"></span>                <span>PARA LLEVAR <img src="img/takeout.png" alt="Takeout" class="w-5 h-5 inline ml-2"></span>
+            </p>
+        </div>
+
+        <!-- Contenedor del Menú Generado por JS -->
+        <div id="menu-container" class="container mx-auto px-4 md:px-6 max-w-3xl space-y-4">
+            <!-- AQUÍ SE INYECTA EL MENÚ VÍA JAVASCRIPT -->
+        </div>
+
+        <div class="text-center mt-12">
+            <button onclick="showPage('home')" class="text-gray-500 hover:text-beluOrange font-bold transition-colors">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Volver al Inicio
+            </button>
+        </div>
+    </main>
+
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // === 1. DATOS DE LA CARTA (JSON) ===
+        const menuData = [
+            {
+                category: "Desayunos",
+                icon: "fa-mug-hot",
+                items: [
+                    { name: "Cau Cau de Mondongo + Pan + Café", price: "27.00", desc: "Cau cau de mondongo!" },
+                    { name: "Sopa Especial al Estilo Japonés", price: "26.00", desc: "Caldo de pollo y chancho, tortilla japonesa, chancho, pollo, cebolla china, fideos." },
+                    { name: "Chaufa especial al estilo Belú", price: "18.60", desc: "Un chaufa especial, tiene chicharrita, frankfurter y el secreto.." },
+                    { name: "Lomo Saltado de res", price: "25.90", desc: "Lomo saltado pa' chuparse los dedos." },
+                    { name: "Chaufa al estilo Japonés", price: "20.00", desc: "Llamado en la oscuridad como MAZEGOHAN,.. es dulce, salado...una delicia." }
+                ]
+            },
+            {
+                category: "Sanguches",
+                icon: "fa-bread-slice",
+                items: [
+                    { name: "Chicharrón (Junior / Clásico)", price: "23.50", desc: "Nuestro sánguche más pedido, “junior o clásico”: pan grande con 150 g de chicharrón + camote." },
+                    { name: "Chicharrón Especial", price: "27.40", desc: "200gr de chicharrón!!!! en un solo pan grande" },
+                    { name: "Chanchi-Relleno", price: "24.50", desc: "Pan grande con chicharrón + relleno + camote." },
+                    { name: "Chicharrón Parrillero", price: "26.50", desc: "Pan grande con chicharrón + chorizo parrillero + camote." },
+                    { name: "Pan con Chicharrita", price: "19.50", desc: "En pan grande: chicharrita sobre camote." },
+                    { name: "Butifarra BELÚ", price: "20.50", desc: "Jamón del país + lechuga + zarza + mostaza + mayo de la casa." },
+                    { name: "Asado de Res Especial", price: "23.50", desc: "Lonjas de asado en pan especial grande." },
+                    { name: "Pollo Deshilachado", price: "19.50", desc: "Pollo + lechuga + mayo." },
+                    { name: "Filete de Pollo", price: "19.90", desc: "Filete + lechuga + tomate." },
+                    { name: "Relleno", price: "19.50", desc: "Relleno + camote." },
+                    { name: "Chorizo Parrillero", price: "18.90", desc: "Chorizo parrillero + lechuga." },
+                    { name: "Frankfurter", price: "18.90", desc: "Salchicha frankfurter." },
+                    { name: "Frankfurter + Huevo", price: "20.90", desc: "Salchicha frankfurter + huevo revuelto." },
+                    { name: "Mixto", price: "19.00", desc: "Queso Edam + jamón inglés + mayo + mantequilla." },
+                    { name: "Triple", price: "23.50", desc: "Queso + jamón inglés + pollo + mayo + mantequilla." },
+                ]
+            },
+            {
+                category: "Hamburguesas",
+                icon: "fa-burger",
+                items: [
+                    { name: "Hamburguesa Clásica", price: "24.50", desc: "Hamburguesa + Lechuga + tomate." },
+                    { name: "Hamburguesa Royal", price: "26.00", desc: "Hamburguesa + Lechuga + tomate + huevo + queso." },
+                    { name: "Hamburguesa Parrillera", price: "28.90", desc: "Hamburguesa + Lechuga + tomate + chorizo parrillero." },
+                    { name: "Hamburguesa Chicharronera", price: "29.50", desc: "Hamburguesa + Lechuga + tomate + chicharrón." }
+                ]
+            },
+            {
+                category: "Combos",
+                icon: "fa-utensils",
+                items: [
+                    { name: "Combo Uno", price: "33.70", desc: "150g chicharrón + camote + 2 panes + tamal + ají de la casa y zarza criolla." },
+                    { name: "Combo Dos", price: "36.70", desc: "150g chicharrón + camote y relleno + 2 panes + tamal + ají de la casa y zarza criolla." },
+                    { name: "Combo Tres", price: "54.00", desc: "250g chicharrón + ½ porción de camote + 4 panes + tamal + ají de la casa y zarza criolla." },
+                    { name: "Combo Cuatro", price: "84.00", desc: "500g chicharrón + porción de camote + 6 panes + tamal + ají de la casa y zarza criolla." },
+                    { name: "Combo Cinco", price: "162.00", desc: "1 kg chicharrón + 2 porción de camotes + 10 panes + 2 tamales + ají de la casa y zarza criolla." },
+                    { name: "Combo Jugo", price: "36.90", desc: "Chicharrón + jugo de fresa con leche." },
+                    { name: "Combo Café", price: "30.70", desc: "Chicharrón + café + pan." },
+                    { name: "Combo Único", price: "25.50", desc: "Pan con chicharrita + café." },
+                    { name: "Combo Básico", price: "23.90", desc: "Chicharrón Básico + Café (Pan con 100g de chicharrón)" }
+                ]
+            },
+            {
+                category: "Por Peso",
+                icon: "fa-scale-balanced",
+                items: [
+                    { name: "1/4 kg Chicharrón + Porción de camote + zarza criolla y ají de la casa", price: "37.50" },
+                    { name: "1/2 kg Chicharrón + Porción de camote + zarza criolla y ají de la casa", price: "61.50" },
+                    { name: "3/4 kg Chicharrón + Porción de camote + zarza criolla y ají de la casa", price: "91.00" },
+                    { name: "1 kg Chicharrón + Porción de camote + zarza criolla y ají de la casa", price: "109.50" },
+                    { name: "1/4 kg solo", price: "29.50" },
+                    { name: "1/2 kg solo", price: "53.50" },
+                    { name: "3/4 kg solo", price: "83.00" },
+                    { name: "1 kg solo", price: "101.50" }
+                ]
+            },
+            {
+                category: "Porciones",
+                icon: "fa-bowl-food",
+                items: [
+                    { name: "Porción de Chicharrón", price: "23.50", desc: "Chicharrón + camote sobre plato." },
+                    { name: "Porción de Chicharrón Parrillera", price: "30.50", desc: "Chicharrón + camote con chorizo parrillero y frankfurter." },
+                    { name: "Porción Camote Frito", price: "9.50" },
+                    { name: "½ Porción Camote", price: "5.00" },
+                    { name: "Porción de Relleno", price: "21.00" },
+                    { name: "½ Porción de Relleno", price: "13.00" },
+                    { name: "Porción Chicharrita", price: "22.50", desc: "Trozos pequeños tostados." }
+                ]
+            },
+            {
+                category: "Bebidas Calientes",
+                icon: "fa-mug-saucer",
+                items: [
+                    { name: "Café Pasado", price: "7.50", desc: "Gota a gota." },
+                    { name: "Café con Leche", price: "9.50", desc: "Café con leche de establo." },
+                    { name: "Infusión", price: "5.60", desc: "Anís / té / manzanilla / clavo / canela." },
+                    { name: "Milo con Leche", price: "10.50", desc: "3 cucharadas de milo!!! con leche de establo." },
+                    { name: "Capuccino", price: "15.00" },
+                    { name: "Café Express", price: "16.20" , desc: "Taza chica."},
+                    { name: "Chocolate Caliente", price: "9.90",desc: "*Solo en Invierno."  }
+                ]
+            },
+            {
+                category: "Jugos y Fríos",
+                icon: "fa-glass-water",
+                items: [
+                    { name: "Jugo de Papaya/Piña/Fresa", price: "12.50" },
+                    { name: "Jugo Surtido/Mango/Lúcuma", price: "12.50" },
+                    { name: "Jugo de Naranja", price: "13.50" },
+                    { name: "Jugo con Leche (Fresa/Surtido/Papaya)", price: "14.90" },
+                    { name: "Chicha Morada Helada", price: "8.90" },
+                    { name: "Limonada Frozen", price: "11.50" },
+                    { name: "Limonada Clásica", price: "10.90" },
+                    { name: "Gaseosa", price: "5.70" }
+                ]
+            },
+            {
+                category: "Otros / Adicionales",
+                icon: "fa-plus-circle",
+                items: [
+                    { name: "Salchicha Huachana", price: "22.00" },
+                    { name: "Pan con Camote", price: "7.50" },
+                    { name: "Pan con Queso Edam", price: "8.50" },
+                    { name: "Pan con Huevo Frito (2)", price: "7.50" },
+                    { name: "Tamal grande", price: "14.50" },
+                    { name: "Zarza criolla / Ají de la casa", price: "1.50", desc: "Made in Belú"  }
+                ]
+            }
+        ];
+
+        // === 2. RENDERIZADO DEL MENÚ ===
+        // Configuración de íconos por plato
+        const itemsWithDeliveryAndTakeout = [
+            'Chicharrón Especial', 'Chicharrón (Junior / Clásico)', 'Chanchi-Relleno', 'Chicharrón Parrillero', 'Pan con Chicharrita', 'Chicharrón a la BBQ', 'Relleno', 'Chorizo Parrillero', 'Frankfurter', 'Frankfurter + Huevo', 'Hamburguesa Clásica', 'Hamburguesa Royal', 'Hamburguesa Parrillera', 'Hamburguesa Chicharronera', 'Combo Uno', 'Combo Dos', 'Combo Tres', 'Combo Cuatro', 'Combo Cinco', '1/4 kg Chicharrón + Porción de camote + zarza criolla y ají de la casa', '1/2 kg Chicharrón + Porción de camote + zarza criolla y ají de la casa', '3/4 kg Chicharrón + Porción de camote + zarza criolla y ají de la casa', '1 kg Chicharrón + Porción de camote + zarza criolla y ají de la casa', '1/4 kg solo', '1/2 kg solo', '3/4 kg solo', '1 kg solo', 'Porción de Chicharrón', 'Porción Camote Frito', 'Porción Parrillera', '½ Porción Camote', 'Porción de Relleno', '½ Porción de Relleno', 'Porción Chicharrita', 'Salchicha Huachana', 'Tamal grande', 'Zarza criolla / Ají'
+        ];
+
+        // Platos que deben mostrar Delivery + WhatsApp pero NO Takeout
+        const itemsWithDeliveryWhatsappOnly = [
+            'Chaufa especial al estilo Belú',
+            'Lomo Saltado de res',
+            'Chaufa al estilo Japonés'
+        ];
+        const menuContainer = document.getElementById('menu-container');
+
+        function renderMenu() {
+            menuContainer.innerHTML = '';
+            menuData.forEach((section, index) => {
+                const sectionHTML = `
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button onclick="toggleAccordion(${index})" class="accordion-btn w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-orange-50 transition-colors text-left group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-orange-100 text-beluOrange flex items-center justify-center group-hover:bg-beluOrange group-hover:text-white transition-colors">
+                                    <i class="fa-solid ${section.icon}"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-beluGuinda font-display">${section.category}</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-gray-400 icon-rotate transition-transform duration-300"></i>
+                        </button>
+                        
+                        <div id="content-${index}" class="accordion-content bg-gray-50">
+                            <div class="p-6 space-y-4">
+                                ${section.items.map(item => `
+                                    <div class="flex justify-between items-start border-b border-gray-200 pb-3 last:border-0 last:pb-0">
+                                        <div class="pr-4">
+                                            <h4 class="font-bold text-gray-800 text-sm md:text-base">${item.name} ${itemsWithDeliveryAndTakeout.includes(item.name) ? '<img src="img/delivery.png" alt="Delivery" class="w-5 h-5 inline ml-2"> <img src="img/whatsapp.png" alt="WhatsApp" class="w-5 h-5 inline ml-1"> <img src="img/takeout.png" alt="Takeout" class="w-5 h-5 inline ml-1">' : itemsWithDeliveryWhatsappOnly.includes(item.name) ? '<img src="img/delivery.png" alt="Delivery" class="w-5 h-5 inline ml-2"> <img src="img/whatsapp.png" alt="WhatsApp" class="w-5 h-5 inline ml-1">' : '<img src="img/takeout.png" alt="Takeout" class="w-5 h-5 inline ml-2">'}</h4>
+                                            ${item.desc ? `<p class="text-xs text-gray-500 mt-1 leading-snug">${item.desc}</p>` : ''}
+                                        </div>
+                                        <div class="font-bold text-beluOrange text-sm md:text-base whitespace-nowrap">
+                                            S/ ${item.price}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                menuContainer.innerHTML += sectionHTML;
+            });
+        }
+
+        // === 3. FUNCIONES DE INTERACCIÓN ===
+
+        // Alternar Acordeón
+        function toggleAccordion(index) {
+            const content = document.getElementById(`content-${index}`);
+            if (!content) return; // Cláusula de seguridad
+            
+            const btn = content.previousElementSibling;
+            const allContents = document.querySelectorAll('.accordion-content');
+            const allBtns = document.querySelectorAll('.accordion-btn');
+
+            // Cerrar otros (Opcional, para estilo acordeón estricto)
+            /*
+            allContents.forEach((el, i) => {
+                if(i !== index) {
+                    el.style.maxHeight = null;
+                    allBtns[i].classList.remove('active');
+                }
+            });
+            */
+
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                btn.classList.remove('active');
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                btn.classList.add('active');
+            }
+        }
+
+        // Navegación SPA (Inicio <-> Carta)
+        function showPage(pageId) {
+            const homePage = document.getElementById('home-page');
+            const menuPage = document.getElementById('menu-page');
+            
+            // Scroll arriba
+            window.scrollTo(0, 0);
+
+            if (pageId === 'home') {
+                homePage.classList.add('active-page');
+                menuPage.classList.remove('active-page');
+                setTimeout(() => {
+                    homePage.style.display = 'block';
+                    menuPage.style.display = 'none';
+                }, 10); // Hack para animación css
+            } else if (pageId === 'menu') {
+                homePage.classList.remove('active-page');
+                menuPage.classList.add('active-page');
+                
+                // Renderizar menú si es la primera vez (optimización)
+                // Usamos children.length para contar elementos reales y evitar problemas con comentarios o espacios
+                if(menuContainer.children.length === 0) renderMenu();
+
+                // Expandir primera categoría por defecto para UX
+                setTimeout(() => {
+                     // Solo si no se ha expandido antes
+                     if(!document.querySelector('.accordion-btn.active')) toggleAccordion(1); // Sanguches
+                }, 500);
+            }
+        }
+
+        // Manejar clicks en el nav (si estamos en Menu y clickean "Nosotros", debe ir a Home y scrollear)
+        function handleNavClick(sectionId) {
+            const homePage = document.getElementById('home-page');
+            
+            if (!homePage.classList.contains('active-page')) {
+                showPage('home');
+                // Esperar a que cargue el home para scrollear
+                setTimeout(() => {
+                    const section = document.getElementById(sectionId);
+                    if(section) section.scrollIntoView({ behavior: 'smooth' });
+                }, 300);
+            } else {
+                // Ya estamos en home, solo scroll normal
+                const section = document.getElementById(sectionId);
+                if(section) section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Menú Móvil
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Animación al hacer Scroll (Intersection Observer)
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // ===== YouTube embed helper: convierte URL (o short link) en embed válido =====
+            function extractYouTubeID(url) {
+                if (!url) return null;
+                url = url.trim();
+                // Intentar patrones comunes (youtu.be, youtube.com/watch, embed, shorts)
+                const regex = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([A-Za-z0-9_-]{11})/;
+                const match = url.match(regex);
+                if (match && match[1]) return match[1];
+
+                // Como fallback, intentar obtener param "v" usando URL
+                try {
+                    const u = new URL(url, window.location.href);
+                    const v = u.searchParams.get('v');
+                    if (v && v.length >= 10) return v;
+                } catch (e) {
+                    // ignore
+                }
+
+                return null;
+            }
+
+            const ytIframe = document.querySelector('iframe.video-bg');
+            if (ytIframe) {
+                const provided = ytIframe.dataset.youtubeUrl;
+                const id = extractYouTubeID(provided);
+                if (id) {
+                    // Añadimos `vq=hd1080` para pedir calidad alta cuando sea posible
+                    ytIframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}&modestbranding=1&rel=0&vq=hd1080`;
+                } else if (provided && provided.includes('youtube')) {
+                    // última oportunidad: si parece una URL, usarla tal cual (no recomendado)
+                    ytIframe.src = provided;
+                    console.warn('No se pudo extraer un ID de YouTube válido. Usando la URL tal cual:', provided);
+                } else {
+                    console.warn('No hay URL de YouTube válida en el atributo data-youtube-url del iframe.');
+                }
+            }
+        });
+
+        // === Contact form AJAX handler ===
+        (function() {
+            const contactForm = document.getElementById('contact-form');
+            const statusEl = document.getElementById('contact-status');
+            if (!contactForm || !statusEl) return;
+
+            contactForm.addEventListener('submit', async (e) => {
+                // Si el formulario tiene data-use-formsubmit="1", permitimos el envío normal
+                if (contactForm.dataset.useFormsubmit === '1') {
+                    return true; // dejar que el navegador haga el POST directo a Formsubmit
+                }
+                e.preventDefault();
+                statusEl.textContent = 'Enviando...';
+                statusEl.className = 'text-sm text-gray-200';
+
+                try {
+                    const formData = new FormData(contactForm);
+                    // Enviar via Formsubmit.co (AJAX)
+                    const resp = await fetch('https://formsubmit.co/ajax/beluchicharroneria@gmail.com', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    // Formsubmit devuelve JSON; validamos respuesta de forma robusta
+                    let data = {};
+                    try {
+                        data = await resp.json();
+                    } catch (e) {
+                        data = {};
+                    }
+
+                    if (resp.ok) {
+                        statusEl.textContent = (data.message || 'Mensaje enviado correctamente. Revisa tu correo para confirmar.');
+                        statusEl.className = 'text-sm text-green-400';
+                        contactForm.reset();
+                    } else {
+                        statusEl.textContent = (data.message || 'Error al enviar el mensaje. Intenta de nuevo más tarde.');
+                        statusEl.className = 'text-sm text-red-400';
+                    }
+                } catch (err) {
+                    statusEl.textContent = 'Error de red. Intenta nuevamente más tarde.';
+                    statusEl.className = 'text-sm text-red-400';
+                }
+            });
+        })();
+
+    </script>
+</body>
+</html>

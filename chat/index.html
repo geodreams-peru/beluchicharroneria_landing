@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BELÚ Chicharronería - 45 años de tradición chorrillana</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <meta name="description" content="Belú Chicharronería, 45 años de tradición chorrillana. Sánguche de chicharrón, desayunos, café, jugos y chicharrón por peso en Chorrillos." />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="main-header">
+    <div class="container header-content">
+      <a href="index.html" class="logo">
+        <!-- Reemplaza por tu logo real -->
+        <img src="assets/logo-belu.png" alt="Belú Chicharronería" />
+      </a>
+      <nav class="main-nav">
+        <a href="#inicio">Inicio</a>
+        <a href="#tradicion">45 años</a>
+        <a href="#productos">Productos</a>
+        <a href="#empresas">Empresas</a>
+        <a href="#delivery">Delivery</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#contacto">Contacto</a>
+        <a href="menu.html" class="btn-nav">Ver Carta</a>
+      </nav>
+      <button class="burger" id="burgerBtn" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO CON VIDEO CORE -->
+  <section id="inicio" class="hero">
+    <div class="hero-video-overlay"></div>
+
+    <!-- Video CORE (reemplaza src por tu video real, mp4 o iframe YouTube) -->
+    <video class="hero-video" autoplay muted loop playsinline>
+      <!-- EJEMPLO: reemplazar por tu ruta real -->
+      <source src="assets/core-belu.mp4" type="video/mp4" />
+      Tu navegador no soporta video HTML5.
+    </video>
+
+    <div class="hero-content container">
+      <div class="hero-text">
+        <span class="hero-tag">Desde 1980 en Chorrillos</span>
+        <h1>El sánguche de chicharrón que marca tus mañanas</h1>
+        <p>
+          BELÚ Chicharronería: 45 años de tradición chorrillana, chicharrón crujiente,
+          tamales, café pasado y desayunos que se volvieron costumbre de domingo.
+        </p>
+        <div class="hero-ctas">
+          <a href="#delivery" class="btn-primary">Pedir ahora</a>
+          <a href="menu.html" class="btn-ghost">Ver carta completa</a>
+        </div>
+        <div class="hero-badges">
+          <span>⭐ 45 años de historia</span>
+          <span>📍 Chorrillos</span>
+          <span>🧡 Chicharrón hecho en casa</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h2>¿Desayuno hoy?</h2>
+        <p>Haz tu pedido por delivery o reserva tu mesa.</p>
+        <div class="hero-delivery-buttons">
+          <a href="#" class="btn-delivery rappi" target="_blank" rel="noopener">
+            <span>🛵</span> Pedir por Rappi
+          </a>
+          <a href="#" class="btn-delivery pedidosya" target="_blank" rel="noopener">
+            <span>⚡</span> Pedir por PedidosYa
+          </a>
+        </div>
+        <div class="hero-hours">
+          <p><strong>Horario:</strong> L-D 7:00 a.m. – 2:00 p.m.</p>
+          <p><strong>Dirección:</strong> Av. Alejandro Iglesias 525, Chorrillos</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="#tradicion" class="hero-scroll-indicator">
+      ↓ Descubre nuestra historia
+    </a>
+  </section>
+
+  <!-- SECCIÓN 45 AÑOS TRADICIÓN -->
+  <section id="tradicion" class="section section-alt reveal">
+    <div class="container two-columns">
+      <div class="col">
+        <h2>45 años de tradición chorrillana</h2>
+        <p>
+          En 1980 nacimos como un sueño sanguchero en Chorrillos. Hoy, BELÚ
+          Chicharronería sigue siendo el punto de encuentro para quienes buscan
+          un sánguche de chicharrón honesto, generoso y con sabor a casa.
+        </p>
+        <p>
+          Hemos crecido gracias al voz a voz, las recomendaciones y las reseñas
+          de nuestros clientes que nos acompañan desde hace décadas.
+        </p>
+        <ul class="icon-list">
+          <li>✔ Chicharrón hecho en casa, dorado y crujiente.</li>
+          <li>✔ Pan especial, camote frito y salsas de la casa.</li>
+          <li>✔ Desayunos completos con café pasado y jugos naturales.</li>
+        </ul>
+      </div>
+      <div class="col col-media">
+        <div class="photo-grid">
+          <div class="photo-card" style="background-image:url('assets/local-1.jpg');"></div>
+          <div class="photo-card" style="background-image:url('assets/chicharron-1.jpg');"></div>
+          <div class="photo-card" style="background-image:url('assets/clientes-1.jpg');"></div>
+          <div class="photo-card" style="background-image:url('assets/cafe.jpg');"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN PRODUCTOS DESTACADOS -->
+  <section id="productos" class="section reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Lo más pedido en BELÚ</h2>
+        <p>Algunos de los favoritos que no fallan en tu mesa.</p>
+      </div>
+      <div class="cards-grid">
+        <article class="product-card">
+          <div class="product-img" style="background-image:url('assets/sandwich-chicharron.jpg');"></div>
+          <div class="product-body">
+            <h3>Sánguche de Chicharrón</h3>
+            <p>
+              Nuestro clásico: pan especial grande, chicharrón crujiente, camote frito
+              y el toque de la casa.
+            </p>
+            <span class="product-tag">Desde S/ 21.5</span>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img" style="background-image:url('assets/chancher-relleno.jpg');"></div>
+          <div class="product-body">
+            <h3>Chancher Relleno</h3>
+            <p>
+              Para los que no se guardan nada: chicharrón + relleno + camote en pan grande.
+            </p>
+            <span class="product-tag">S/ 23.5</span>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img" style="background-image:url('assets/hamburguesa-chicharronera.jpg');"></div>
+          <div class="product-body">
+            <h3>Hamburguesa Chicharronera</h3>
+            <p>
+              Hamburguesa con chicharrón, lechuga y tomate. Combo perfecto para salir de la rutina.
+            </p>
+            <span class="product-tag">S/ 27</span>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img" style="background-image:url('assets/porcion-chicharron.jpg');"></div>
+          <div class="product-body">
+            <h3>Porción de Chicharrón</h3>
+            <p>
+              Chicharrón por peso, ideal para compartir o armar tu propia mesa en casa.
+            </p>
+            <span class="product-tag">Desde 1/4 kg</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN EMPRESAS / EVENTOS -->
+  <section id="empresas" class="section section-alt reveal">
+    <div class="container two-columns">
+      <div class="col">
+        <h2>Para reuniones ejecutivas y eventos corporativos</h2>
+        <p>
+          También llevamos la experiencia BELÚ a tu oficina. Atendemos
+          <strong>reuniones ejecutivas</strong>, <strong>desayunos corporativos</strong>,
+          capacitaciones, celebraciones internas y más.
+        </p>
+        <p>
+          Podemos preparar sánguches, chicharrón por peso, cafés y jugos para grupos,
+          con atención puntual y presentación cuidada.
+        </p>
+        <ul class="icon-list">
+          <li>✔ Desayunos ejecutivos completos.</li>
+          <li>✔ Chicharrón por peso y sánguches armados.</li>
+          <li>✔ Entrega puntual en tu oficina.</li>
+        </ul>
+        <a href="#contacto" class="btn-primary">Quiero cotizar para mi empresa</a>
+      </div>
+      <div class="col col-media">
+        <div class="event-card">
+          <h3>Soluciones para tu equipo</h3>
+          <p>
+            Cuéntanos cuántas personas son, qué horario manejas y qué tipo de
+            desayuno buscas. Nosotros armamos la propuesta.
+          </p>
+          <div class="event-meta">
+            <span>👥 Desde 10 personas</span>
+            <span>📅 L-D en horario de mañana</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DELIVERY -->
+  <section id="delivery" class="section reveal">
+    <div class="container two-columns">
+      <div class="col">
+        <h2>Belú en casa, sin hacer cola</h2>
+        <p>
+          Haz tu pedido por tus apps favoritas y recibe tu chicharrón calientito,
+          con camote frito y café, directo en tu puerta.
+        </p>
+        <ul class="icon-list">
+          <li>✔ Empaque seguro y pensado para que llegue perfecto.</li>
+          <li>✔ Encuéntranos en PedidosYa y Rappi.</li>
+          <li>✔ Ideal para domingos en familia o antojo entre semana.</li>
+        </ul>
+      </div>
+      <div class="col col-media delivery-apps">
+        <a href="#" class="delivery-card rappi" target="_blank" rel="noopener">
+          <span class="delivery-logo">🛵</span>
+          <div>
+            <h3>Rappi</h3>
+            <p>Pide BELÚ desde la app</p>
+          </div>
+        </a>
+        <a href="#" class="delivery-card pedidosya" target="_blank" rel="noopener">
+          <span class="delivery-logo">⚡</span>
+          <div>
+            <h3>PedidosYa</h3>
+            <p>Chicharrón, café y más</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN TESTIMONIOS -->
+  <section id="testimonios" class="section section-alt reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <p>Historias reales de gente que lleva años desayunando con nosotros.</p>
+      </div>
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <p>
+            “Desde que era niño mis papás me traían a BELÚ. Ahora vengo con mis hijos.
+            El chicharrón sigue teniendo el mismo sabor de siempre.”
+          </p>
+          <h3>Carlos R.</h3>
+          <span>Cliente desde 1995</span>
+          <div class="stars">★★★★★</div>
+        </article>
+        <article class="testimonial-card">
+          <p>
+            “Perfecto para los domingos. Pedimos por delivery y llega caliente,
+            bien empacado y siempre abundante.”
+          </p>
+          <h3>Andrea M.</h3>
+          <span>Cliente de PedidosYa</span>
+          <div class="stars">★★★★★</div>
+        </article>
+        <article class="testimonial-card">
+          <p>
+            “Lo usamos para desayunos corporativos y siempre quedan felices en la oficina.
+            Puntuales, ordenados y todo muy rico.”
+          </p>
+          <h3>Grupo Empresarial</h3>
+          <span>Desayunos ejecutivos</span>
+          <div class="stars">★★★★★</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN CONTACTO -->
+  <section id="contacto" class="section reveal">
+    <div class="container two-columns">
+      <div class="col">
+        <h2>Hablemos</h2>
+        <p>
+          ¿Quieres reservar, cotizar para tu empresa o hacer una consulta?
+          Escríbenos y te respondemos a la brevedad.
+        </p>
+        <ul class="contact-info">
+          <li><strong>Correo:</strong> beluchicharroneria@gmail.com</li>
+          <li><strong>Dirección:</strong> Av. Alejandro Iglesias 525, Chorrillos</li>
+          <li><strong>Horario:</strong> L-D 7:00 a.m. – 2:00 p.m.</li>
+        </ul>
+        <!-- Puedes reemplazar el src por el mapa real -->
+        <div class="map-placeholder">
+          <span>🗺️ Aquí va el mapa de Google Maps del local</span>
+        </div>
+      </div>
+      <div class="col">
+        <form
+          class="contact-form"
+          action="https://formsubmit.co/beluchicharroneria@gmail.com"
+          method="POST"
+        >
+          <!-- Config extra de formsubmit -->
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_subject" value="Nuevo mensaje desde la web de BELÚ" />
+          <input type="hidden" name="_template" value="table" />
+
+          <div class="form-group">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" required />
+          </div>
+          <div class="form-group">
+            <label for="celular">Celular</label>
+            <input type="tel" id="celular" name="celular" required />
+          </div>
+          <div class="form-group">
+            <label for="correo">Correo</label>
+            <input type="email" id="correo" name="correo" required />
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary full-width">Enviar mensaje</button>
+          <p class="form-note">
+            Al enviar este formulario, tu mensaje llegará a
+            <strong>beluchicharroneria@gmail.com</strong>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <p>© <span id="year"></span> BELÚ Chicharronería · Tradición desde 1980</p>
+      </div>
+      <div class="footer-right">
+        <a href="#inicio">Inicio</a>
+        <a href="menu.html">Carta</a>
+        <a href="#empresas">Empresas</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
